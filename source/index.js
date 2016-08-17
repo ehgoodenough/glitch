@@ -1,3 +1,3 @@
 document.getElementById("mount").innerHTML = message
 
-console.log("Hello World")
+console.log("Hello World!!")
