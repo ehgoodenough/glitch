@@ -1,0 +1,7 @@
+{
+  "name": "glitch",
+  "version": "0.0.0",
+  "description": "A game for JS13K 2016",
+  "author": "Andrew McPherson <@ehgoodenough>",
+  "license": "MIT"
+}
