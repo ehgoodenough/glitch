@@ -75,7 +75,6 @@ Rimraf("./builds", function() {
     Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
         Pump([
             Gulp.src([
-                "./source/scripts/*.js",
                 "./source/index.js",
             ]),
             Gulp.if(isDev, Gulp.srcmaps.init()),
