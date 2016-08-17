@@ -23,7 +23,8 @@ var server = BrowserSync({
 })
 
 Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
-    console.log(path)
+    // console.log(path)
+    var time = Date.now()
     Pump([
         Gulp.src([
             "./source/scripts/*.js",
@@ -39,7 +40,10 @@ Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
         if(error) {
             console.log(error.toString())
         } else {
-            // console.log("done")
+            time = Date.now() - time
+            time = (time / 1000) + "s"
+            var size = ".." + "kb"
+            console.log(path, time, "done")
         }
 
         if(!!server) {
@@ -48,9 +52,9 @@ Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
     })
 })
 
+// todo: handle css and html
 // todo: rimraf before chokidar
-// todo: lint the source
+// todo: don't start server too soon
 // todo: report errors better
 // todo: log size and time
-// todo: handle css and html
-// todo: don't start server too soon
+// todo: lint the source
