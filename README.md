@@ -4,10 +4,15 @@ A game for [js13k 2016](http://2016.js13kgames.com). A game about a glitch in ti
 
 ### Getting Started ###
 
-To build the game:
+Have node v4 and npm v3.
 
-    npm install
-    node build
+    $ node --version
+    $ npm --version
+
+Build the game.
+
+    $ npm install
+    $ node build
 
 When reading the code, start at `source/index.js`.
 
