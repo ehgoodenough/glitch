@@ -31,13 +31,6 @@ class Render {
     }
 }
 
-function Loop(func) {
-    (function loop(delta) {
-        func(Math.min(window.performance.now() - delta, 1000))
-        window.requestAnimationFrame(loop.bind(this, window.performance.now()))
-    })(window.performance.now())
-}
-
 var player = new Player()
 var render = new Render({
     width: 640 / 6,

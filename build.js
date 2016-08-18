@@ -28,6 +28,7 @@ Gulp.report = function() {
 }
 
 var isDev = true
+var isReady = false
 
 var HOST = null
 var PORT = 1375
@@ -73,14 +74,18 @@ Rimraf("./builds", function() {
         })
     })
     Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
+        if(isReady == false && path != "source/index.js") {
+            return -1
+        }
         Pump([
             Gulp.src([
+                "./source/scripts/**/*.js",
                 "./source/index.js",
             ]),
             //Gulp.if(isDev, Gulp.srcmaps.init()),
-            Gulp.babel(),
             Gulp.concat("index.js"),
-            Gulp.uglify(),
+            Gulp.babel(),
+            //Gulp.uglify(),
             //Gulp.if(isDev, Gulp.srcmaps.write()),
             Gulp.dest("./builds"),
             Gulp.report(),
@@ -94,8 +99,13 @@ Rimraf("./builds", function() {
                 server.reload()
             }
         })
+    }).on("ready", function() {
+        isReady = true
     })
 })
 
-// cache
-// lint
+// log the filesize over datetime and version
+// cache any files that haven't been touched
+// lint all files before compilation
+// srcmaps should be included but not embedded
+// minify the HTML and CSS as well
