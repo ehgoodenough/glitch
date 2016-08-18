@@ -5,11 +5,12 @@ class Player {
         this.width = 7
         this.height = 7
         this.color = "orange"
+        this.speed = 4
+    }
+    update(delta) {
+        this.x += this.speed * (delta / 1000)
     }
 }
-
-var player = new Player()
-
 
 class Render {
     constructor(render) {
@@ -20,15 +21,30 @@ class Render {
 
         document.getElementById("frame").appendChild(this.canvas)
     }
-    update(entity) {
+    render(entity) {
         this.canvas.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.canvas.context.fillStyle = entity.color
-        this.canvas.context.fillRect(entity.x, entity.y, entity.width, entity.height)
+        this.canvas.context.fillRect(
+            Math.floor(entity.x), Math.floor(entity.y),
+            Math.floor(entity.width), Math.floor(entity.height)
+        )
     }
 }
 
+function Loop(func) {
+    (function loop(delta) {
+        func(Math.min(window.performance.now() - delta, 1000))
+        window.requestAnimationFrame(loop.bind(this, window.performance.now()))
+    })(window.performance.now())
+}
+
+var player = new Player()
 var render = new Render({
     width: 640 / 6,
     height: 360 / 6,
 })
-render.update(player)
+
+var loop = new Loop(function(delta) {
+    player.update(delta)
+    render.render(player)
+})
