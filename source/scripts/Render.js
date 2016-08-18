@@ -11,7 +11,8 @@ class Render {
         this.canvas.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.canvas.context.fillStyle = entity.color
         this.canvas.context.fillRect(
-            Math.floor(entity.x), Math.floor(entity.y),
+            Math.floor(entity.x - (entity.width * (entity.ax || 0.5))),
+            Math.floor(entity.y - (entity.height * (entity.ay || 0.5))),
             Math.floor(entity.width), Math.floor(entity.height)
         )
     }

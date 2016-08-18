@@ -23,8 +23,8 @@ Gulp.report = function() {
     return mapstream(function(file, callback) {
         var date = Moment().format("M/D/YYYY")
         var time = Moment().format("h:mma")
-        var duration = (process.uptime() - uptime).toFixed(3) + "s"
-        var size = filesize(Buffer.byteLength(String(file.contents)), {spacer: ""})
+        var duration = new Number(process.uptime() - uptime).toFixed(3) + "s"
+        var size = filesize(Buffer.byteLength(String(file.contents)), {spacer: "", exponent: 1})
         console.log("[" + date + "][" + time + "] (" + size + ")(" + duration + ")")
         fs.appendFile("build.csv", date + " " + time + "," + size.slice(0, -2) + "," + duration.slice(0, -1) + "\n")
         callback(null, file)

@@ -1,11 +1,27 @@
+const WIDTH = 640 / 4
+const HEIGHT = 360 / 4
+
+class Game {
+    constructor() {
+        this.player = new Player()
+    }
+    update(delta) {
+        this.player.update(delta)
+
+        
+        render.render(game.player)
+    }
+}
+
 class Player {
     constructor() {
-        this.x = 14
-        this.y = 14
-        this.width = 7
-        this.height = 7
-        this.color = "orange"
-        this.speed = 4
+        this.color = "#FFF"
+        this.x = WIDTH / 2
+        this.y = HEIGHT / 2
+        this.ax = 0.5
+        this.ay = 0.5
+        this.width = 12
+        this.height = 12
     }
     update(delta) {
         if(Input.isDown("W")) {
@@ -23,14 +39,12 @@ class Player {
     }
 }
 
-var player = new Player()
+var game = new Game()
 
 var render = new Render({
-    width: 640 / 6,
-    height: 360 / 6,
+    width: WIDTH, height: HEIGHT
 })
 
 var loop = new Loop(function(delta) {
-    player.update(delta)
-    render.render(player)
+    game.update(delta)
 })
