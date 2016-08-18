@@ -1,3 +1,6 @@
+var HOST = null
+var PORT = 1375
+
 var fs = require("fs")
 var filesize = require("filesize")
 var mapstream = require("map-stream")
@@ -28,12 +31,7 @@ Gulp.report = function() {
     })
 }
 
-var isDev = true
 var isReady = false
-
-var HOST = null
-var PORT = 1375
-
 var server = null
 
 Rimraf("./builds", function() {
@@ -41,7 +39,6 @@ Rimraf("./builds", function() {
         Pump([
             Gulp.src("source/index.html"),
             Gulp.dest("./builds"),
-            //Gulp.report(),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
@@ -63,7 +60,6 @@ Rimraf("./builds", function() {
         Pump([
             Gulp.src("source/index.css"),
             Gulp.dest("./builds"),
-            //Gulp.report(),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
@@ -81,11 +77,11 @@ Rimraf("./builds", function() {
                 "./source/scripts/**/*.js",
                 "./source/index.js",
             ]),
-            //Gulp.if(isDev, Gulp.srcmaps.init()),
+            // Gulp.srcmaps.init(),
             Gulp.concat("index.js"),
             Gulp.babel(),
-            //Gulp.uglify(),
-            //Gulp.if(isDev, Gulp.srcmaps.write()),
+            Gulp.uglify(),
+            // Gulp.srcmaps.write(),
             Gulp.dest("./builds"),
             Gulp.report(),
         ], function(error) {
