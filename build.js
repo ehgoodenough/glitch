@@ -77,11 +77,11 @@ Rimraf("./builds", function() {
             Gulp.src([
                 "./source/index.js",
             ]),
-            Gulp.if(isDev, Gulp.srcmaps.init()),
+            //Gulp.if(isDev, Gulp.srcmaps.init()),
             Gulp.babel(),
             Gulp.concat("index.js"),
             Gulp.uglify(),
-            Gulp.if(isDev, Gulp.srcmaps.write()),
+            //Gulp.if(isDev, Gulp.srcmaps.write()),
             Gulp.dest("./builds"),
             Gulp.report(),
         ], function(error) {
@@ -89,7 +89,6 @@ Rimraf("./builds", function() {
                 console.log(error.toString())
                 var message = "throw '" + error.message + "'"
                 fs.writeFile("./builds/index.js", message)
-                return -1
             }
             if(server != null) {
                 server.reload()
