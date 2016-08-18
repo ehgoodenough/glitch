@@ -18,11 +18,12 @@ Gulp.uglify = require("gulp-uglify")
 Gulp.report = function() {
     var uptime = process.uptime()
     return mapstream(function(file, callback) {
+        var date = Moment().format("M/D/YYYY")
         var time = Moment().format("h:mma")
-        var name = Chalk.underline(file.path)
-        var duration = Number(process.uptime() - uptime).toFixed(3) + "s"
+        var duration = (process.uptime() - uptime).toFixed(3) + "s"
         var size = filesize(Buffer.byteLength(String(file.contents)), {spacer: ""})
-        console.log("[" + time + "]", name, "(" + size + ")", "(" + duration + ")")
+        console.log("[" + date + "][" + time + "] (" + size + ")(" + duration + ")")
+        fs.appendFile("build.csv", date + " " + time + "," + size.slice(0, -2) + "," + duration.slice(0, -1) + "\n")
         callback(null, file)
     })
 }
@@ -40,7 +41,7 @@ Rimraf("./builds", function() {
         Pump([
             Gulp.src("source/index.html"),
             Gulp.dest("./builds"),
-            Gulp.report(),
+            //Gulp.report(),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
@@ -62,7 +63,7 @@ Rimraf("./builds", function() {
         Pump([
             Gulp.src("source/index.css"),
             Gulp.dest("./builds"),
-            Gulp.report(),
+            //Gulp.report(),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
@@ -74,9 +75,7 @@ Rimraf("./builds", function() {
         })
     })
     Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
-        if(isReady == false && path != "source/index.js") {
-            return -1
-        }
+        if(isReady == false && path != "source/index.js") {return}
         Pump([
             Gulp.src([
                 "./source/scripts/**/*.js",
@@ -104,8 +103,8 @@ Rimraf("./builds", function() {
     })
 })
 
-// log the filesize over datetime and version
+// get directory size, not file size
+// srcmaps should be included but not embedded
 // cache any files that haven't been touched
 // lint all files before compilation
-// srcmaps should be included but not embedded
 // minify the HTML and CSS as well
