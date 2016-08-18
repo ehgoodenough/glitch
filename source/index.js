@@ -1,3 +1,7 @@
-document.getElementById("mount").innerHTML = "Hello World!!"
+var canvas = document.createElement("canvas")
+canvas.width = 640 / 2
+canvas.height = 360 / 2
 
-console.log("Hello World!!")
+
+var frame = document.getElementById("frame")
+frame.appendChild(canvas)
