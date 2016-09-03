@@ -11,11 +11,19 @@ class Render {
         this.canvas.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
     render(entity) {
+        this.canvas.context.save()
+        this.canvas.context.translate(
+            Math.floor(entity.position.x),
+            Math.floor(entity.position.y)
+        )
+        this.canvas.context.rotate(entity.rotation || 0)
         this.canvas.context.fillStyle = entity.color
         this.canvas.context.fillRect(
-            Math.floor(entity.position.x - (entity.width * (entity.anchor.x || 0.5))),
-            Math.floor(entity.position.y - (entity.height * (entity.anchor.y || 0.5))),
-            Math.floor(entity.width), Math.floor(entity.height)
+            entity.width * -0.5,
+            entity.height * -0.5,
+            entity.width,
+            entity.height
         )
+        this.canvas.context.restore()
     }
 }

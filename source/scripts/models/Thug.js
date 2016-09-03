@@ -1,27 +1,24 @@
 class Thug {
-    constructor(parameters) {
-
-        this.width = 6
-        this.height = 8
+    constructor(thug) {
+        this.width = 12
+        this.height = 16
         this.color = "#C00"
 
         this.position = {
-            x: WIDTH + this.width,
-            y: HEIGHT / 2
-        }
-        this.anchor = {
-            x: 0.5,
-            y: 0.5
+            x: thug.position.x,
+            y: thug.position.y
         }
 
         this.speed = 1
+        this.rotation = Math.PI / 10
     }
     update(delta) {
-        var d = delta.glitchtime ? delta.glitchtime.inFrames : delta.realtime.inFrames
-        this.position.x -= this.speed * d
+        this.position.x -= this.speed * delta.realtime.inFrames
 
         if(this.position.x < -1 * this.width) {
             this.position.x = WIDTH + this.width
         }
+
+        this.rotation += (Math.PI / 32) * delta.realtime.inFrames
     }
 }

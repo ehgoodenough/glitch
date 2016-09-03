@@ -3,12 +3,11 @@ const MAXIMUM_VELOCITY = 1
 
 class Player {
     constructor() {
-        this.width = 6
-        this.height = 8
+        this.width = 12
+        this.height = 16
         this.color = "#FFF"
 
         this.position = {x: WIDTH / 2, y: HEIGHT / 2}
-        this.anchor = {x: 0.5, y: 0.5}
 
         this.acceleration = 0.3
         this.deceleration = 1.3

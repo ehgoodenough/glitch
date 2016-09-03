@@ -2,9 +2,20 @@ class Game {
     constructor() {
         this.player = new Player()
 
-        this.thug = new Thug()
-
-        this.glitches = {}
+        this.thugs = [
+            new Thug({
+                position: {
+                    x: WIDTH * 0.75,
+                    y: HEIGHT / 2 - 20
+                }
+            }),
+            new Thug({
+                position: {
+                    x: WIDTH * 0.75,
+                    y: HEIGHT / 2 + 20
+                }
+            }),
+        ]
 
         this.time = 0
     }
@@ -29,39 +40,17 @@ class Game {
         delta.glitchtime.inFrames = fluxtime
 
         this.player.update(delta)
-        this.thug.update(delta)
 
-        if(delta.glitchtime.inFrames < 0.5) {
-            var glitch = {
-                position: {
-                    x: Math.floor(this.player.position.x),
-                    y: Math.floor(this.player.position.y),
-                },
-                width: this.player.width,
-                height: this.player.height,
-                color: "rgba(255, 255, 255, 0.2)",
-                anchor: {
-                    x: this.player.anchor.x,
-                    y: this.player.anchor.y,
-                },
-                time: 5
-            }
-            var key = glitch.position.x + "x" + glitch.position.y
-            this.glitches[key] = glitch
-        }
-
+        this.thugs.forEach((thug) => {
+            thug.update(delta)
+        })
+    }
+    render() {
         render.clear()
-        render.render(this.thug)
-        
-        for(var key in this.glitches) {
-            var glitch = this.glitches[key]
-            glitch.time -= delta.glitchtime.inFrames
-            if(glitch.time <= 0) {
-                delete this.glitches[key]
-            } else {
-                render.render(glitch)
-            }
-        }
+
+        this.thugs.forEach((thug) => {
+            render.render(thug)
+        })
 
         render.render(this.player)
     }
