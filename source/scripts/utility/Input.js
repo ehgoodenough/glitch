@@ -5,6 +5,10 @@ var Input = {
         "S": 83,
         "A": 65,
         "D": 68,
+        "UP": 38,
+        "DOWN": 40,
+        "LEFT": 37,
+        "RIGHT": 39,
     },
     isDown: function(keycode) {
         keycode = this.keycodes[keycode] || keycode
