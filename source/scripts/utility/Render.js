@@ -19,8 +19,8 @@ class Render {
         this.canvas.context.rotate(entity.rotation || 0)
         this.canvas.context.fillStyle = entity.color
         this.canvas.context.fillRect(
-            entity.width * -0.5,
-            entity.height * -0.5,
+            entity.width * entity.anchor.x * -1,
+            entity.height * entity.anchor.y * -1,
             entity.width,
             entity.height
         )

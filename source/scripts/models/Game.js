@@ -4,17 +4,19 @@ class Game {
 
         this.thugs = [
             new Thug({
+                game: this,
                 position: {
                     x: WIDTH * 0.75,
                     y: HEIGHT / 2 - 20
                 }
             }),
-            new Thug({
-                position: {
-                    x: WIDTH * 0.75,
-                    y: HEIGHT / 2 + 20
-                }
-            }),
+            // new Thug({
+            //     game: this,
+            //     position: {
+            //         x: WIDTH * 0.75,
+            //         y: HEIGHT / 2 + 20
+            //     }
+            // }),
         ]
 
         this.time = 0
@@ -47,6 +49,15 @@ class Game {
     }
     render() {
         render.clear()
+
+        render.canvas.context.fillStyle = "#444"
+        render.canvas.context.beginPath()
+        render.canvas.context.arc(
+            this.player.position.x,
+            this.player.position.y,
+            50, 0, Math.PI * 2, false
+        )
+        render.canvas.context.fill()
 
         this.thugs.forEach((thug) => {
             render.render(thug)
