@@ -65,5 +65,11 @@ class Player {
         } if(Math.abs(this.velocity.y) < MINIMUM_VELOCITY) {
             this.velocity.y = 0
         }
+
+        if(delta.glitchtime.inFrames > 0.9) {
+            this.color = "white"
+        } else {
+            this.color = "orange"
+        }
     }
 }
