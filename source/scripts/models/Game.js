@@ -28,10 +28,8 @@ class Game {
 
         this.player.update(delta)
         this.thug.update(delta)
-
-        if(delta.glitchtime.inFrames > 0.9) {
-            render.clear()
-        }
+        
+        render.clear()
         render.render(game.thug)
         render.render(game.player)
     }
