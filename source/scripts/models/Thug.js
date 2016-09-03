@@ -17,7 +17,8 @@ class Thug {
         this.speed = 1
     }
     update(delta) {
-        this.position.x -= this.speed * delta.f
+        var d = delta.glitchtime ? delta.glitchtime.inFrames : delta.realtime.inFrames
+        this.position.x -= this.speed * d
 
         if(this.position.x < -1 * this.width) {
             this.position.x = WIDTH + this.width
