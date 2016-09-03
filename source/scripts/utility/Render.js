@@ -7,8 +7,10 @@ class Render {
 
         document.getElementById("frame").appendChild(this.canvas)
     }
-    render(entity) {
+    clear() {
         this.canvas.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    }
+    render(entity) {
         this.canvas.context.fillStyle = entity.color
         this.canvas.context.fillRect(
             Math.floor(entity.position.x - (entity.width * (entity.anchor.x || 0.5))),
