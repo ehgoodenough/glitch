@@ -34,7 +34,7 @@ The deadline for submission is September 13th, 2016.
 - ~~Add some other sprites for the enemies. Spawn and move the sprites from top to bottom.~~
 - ~~Slowdown and speedup time. If it's easier, just jump between speeds, and worry about smoothing between speeds later.~~
 - ~~Add the smearing glitch effect during slowdown and speedup.~~
-- ~~Spawn a bunch of projectiles, which can collide with you or your enemies. Spawn more enemies, who can also spawn a bunch of projectiles. If you get hit by a projectile, you die and respawn.
+- ~~Spawn a bunch of projectiles, which can collide with you or your enemies. Spawn more enemies, who can also spawn a bunch of projectiles. If you get hit by a projectile, you die and respawn.~~
 - ~~Juice it up with stars and explosions.~~
 - ~~Add a victory condition.~~
 - Add sound.
