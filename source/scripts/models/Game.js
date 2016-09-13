@@ -1,3 +1,5 @@
+const AMOUNT_OF_STARS = 50
+
 class Game {
     constructor() {
         this.projectiles = {}
@@ -6,6 +8,11 @@ class Game {
         this.player = new Player({
             game: this,
         })
+
+        this.stars = new Array()
+        for(var i = 0; i < AMOUNT_OF_STARS; i += 1) {
+            this.stars.push(new Star())
+        }
 
         this.time = 0
         this.key = 0
@@ -34,10 +41,19 @@ class Game {
         delta.glitchtime.inFrames = fluxtime * delta.realtime.inFrames
         delta.glitchtime.inSeconds = fluxtime * delta.realtime.inSeconds
         delta.glitchtime.inMilliseconds = fluxtime * delta.realtime.inMilliseconds
+        delta.glitchtime.inNormals = fluxtime
+
+        if(this.player == undefined) {
+            delta.glitchtime = delta.realtime
+        }
 
         ////////////////////////
         // Updating Entities //
         //////////////////////
+
+        for(var key in this.stars) {
+            this.stars[key].update(delta)
+        }
 
         if(this.player != undefined) {
             this.player.update(delta)
@@ -52,7 +68,7 @@ class Game {
         }
 
         if(this.player != undefined) {
-            if(Object.keys(this.thugs).length < 2) {
+            if(Object.keys(this.thugs).length < 5) {
                 var thug = new Thug({
                     game: this,
                     position: {
@@ -67,8 +83,17 @@ class Game {
         // Rendering Entities //
         ///////////////////////
 
-        //if(delta.glitchtime.inFrames > 0.9)
-        render.clear()
+        // render.clear()
+        render.canvas.context.fillStyle = "rgba(42, 43, 42, " + delta.glitchtime.inNormals + ")"
+        render.canvas.context.fillRect(0, 0, WIDTH, HEIGHT)
+
+        if(delta.glitchtime.inNormals > 0.9) {
+            render.clear()
+        }
+
+        for(var key in this.stars) {
+            render.render(this.stars[key])
+        }
 
         for(var key in this.thugs) {
             render.render(this.thugs[key])

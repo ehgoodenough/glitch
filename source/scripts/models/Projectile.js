@@ -2,6 +2,11 @@ const ORANGE = "#EF8A17"
 const GREEN = "#008148"
 const YELLOW = "#C6C013"
 const RED = "#EF2917"
+const WHITE = "#FFF"
+
+const COLORS = [
+    ORANGE, GREEN, YELLOW, RED, WHITE
+]
 
 class Projectile {
     constructor(protoprojectile) {
