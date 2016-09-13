@@ -93,6 +93,7 @@ class Player {
     }
     beDamaged() {
         this.remove()
+        timesDied += 1
         var explosion = new Explosion({
             game: this.game,
             billows: 10,
@@ -111,7 +112,7 @@ class Player {
     countkill() {
         this.killcount -= 1
         if(this.killcount <= 0) {
-            this.game.string = "YOU WIN!"
+            this.game.string = " YOU WIN!!"
         }
     }
 }

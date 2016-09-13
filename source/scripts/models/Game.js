@@ -1,6 +1,10 @@
 const AMOUNT_OF_STARS = 50
 const AMOUNT_OF_THUGS = 5
 
+var hasOverclocked = window.localStorage.hasOverclocked == "true" || false
+var timesDied = 0
+const TIMES_TO_DIE = 3
+
 class Game {
     constructor() {
         this.thugs = {}
@@ -36,17 +40,19 @@ class Game {
         }
         this.time += delta.realtime.inSeconds
 
-        var frequency = 2.5, shift = 0
-        var fluxtime = Math.sin(frequency * this.time + shift) // generates the waveform
-        fluxtime = Math.sin((Math.PI / 2) * fluxtime) // bulks up the waveform
-        fluxtime = (fluxtime + 1) / 2 // normalizes {-1 to 1} to {0 to 1}
-        delta.glitchtime.inFrames = fluxtime * delta.realtime.inFrames
-        delta.glitchtime.inSeconds = fluxtime * delta.realtime.inSeconds
-        delta.glitchtime.inMilliseconds = fluxtime * delta.realtime.inMilliseconds
-        delta.glitchtime.inNormals = fluxtime
-
-        if(this.player == undefined) {
+        if(hasOverclocked == true
+        && this.player != undefined) {
+            var frequency = 2.5, shift = 0
+            var fluxtime = Math.sin(frequency * this.time + shift) // generates the waveform
+            fluxtime = Math.sin((Math.PI / 2) * fluxtime) // bulks up the waveform
+            fluxtime = (fluxtime + 1) / 2 // normalizes {-1 to 1} to {0 to 1}
+            delta.glitchtime.inFrames = fluxtime * delta.realtime.inFrames
+            delta.glitchtime.inSeconds = fluxtime * delta.realtime.inSeconds
+            delta.glitchtime.inMilliseconds = fluxtime * delta.realtime.inMilliseconds
+            delta.glitchtime.inNormals = fluxtime
+        } else {
             delta.glitchtime = delta.realtime
+            delta.glitchtime.inNormals = 1
         }
 
         ////////////////////////
@@ -55,7 +61,7 @@ class Game {
 
         if(this.player == undefined) {
             if(Object.keys(this.explosions).length == 0
-            // && Object.keys(this.projectiles).length == 0
+            && Object.keys(this.projectiles).length == 0
             && Object.keys(this.thugs).length == 0) {
                 this.time = 0
                 this.player = new Player({
@@ -84,15 +90,27 @@ class Game {
             this.thugs[key].update(delta)
         }
 
+        if(this.exe != undefined) {
+            this.exe.update(delta)
+        }
+
         if(this.player != undefined) {
-            if(Object.keys(this.thugs).length < AMOUNT_OF_THUGS) {
-                var thug = new Thug({
-                    game: this,
-                    position: {
-                        x: (Math.random() * WIDTH * 0.80) + (WIDTH * 0.10),
-                        y: (Math.random() * 20 * -1)
-                    }
-                })
+            if(hasOverclocked == false && timesDied >= TIMES_TO_DIE) {
+                if(this.exe == undefined) {
+                    this.exe = new EXE({
+                        game: this,
+                    })
+                }
+            } else {
+                if(Object.keys(this.thugs).length < AMOUNT_OF_THUGS * (hasOverclocked ? 1.5 : 2)) {
+                    var thug = new Thug({
+                        game: this,
+                        position: {
+                            x: (Math.random() * WIDTH * 0.80) + (WIDTH * 0.10),
+                            y: (Math.random() * HEIGHT * -0.5)
+                        }
+                    })
+                }
             }
         }
 
@@ -100,8 +118,10 @@ class Game {
         // Rendering Entities //
         ///////////////////////
 
+        //if(hasOverclocked != false) {
         render.canvas.context.fillStyle = "rgba(42, 43, 42, " + delta.glitchtime.inNormals + ")"
         render.canvas.context.fillRect(0, 0, WIDTH, HEIGHT)
+        //}
 
         if(this.player == undefined
         || delta.glitchtime.inNormals > 0.9) {
@@ -120,17 +140,21 @@ class Game {
             render.render(this.projectiles[key])
         }
 
+        if(this.exe != undefined) {
+            render.render(this.exe)
+        }
+
         if(this.player != undefined) {
             render.render(this.player)
-            render.renderText(this.player.killcount, {x: 4, y: 24})
+            render.renderText(this.player.killcount + " out of 20", {x: 4, y: HEIGHT - 10})
         }
 
         for(var key in this.explosions) {
             render.renderCircle(this.explosions[key])
         }
-        
+
         if(this.string != undefined) {
-            render.renderText(this.string, {x: 27, y: HEIGHT / 2})
+            render.renderText(this.string, {x: 10, y: HEIGHT / 2})
         }
     }
 }

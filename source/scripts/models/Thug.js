@@ -101,7 +101,9 @@ class Thug {
                 },
                 size: 10 + (Math.random() * 10)
             })
-            this.game.player.countkill()
+            if(this.game.player) {
+                this.game.player.countkill()
+            }
         }
     }
     remove() {
