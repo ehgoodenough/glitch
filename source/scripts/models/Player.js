@@ -91,8 +91,19 @@ class Player {
     }
     beDamaged() {
         this.remove()
+        var explosion = new Explosion({
+            game: this.game,
+            billows: 10,
+            position: {
+                x: this.position.x,
+                y: this.position.y,
+            },
+            size: 50 + (Math.random() * 10)
+        })
     }
     remove() {
-        delete this.game.player
+        if(this.game && this.game.player) {
+            delete this.game.player
+        }
     }
 }

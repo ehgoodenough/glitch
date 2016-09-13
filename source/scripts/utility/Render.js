@@ -17,7 +17,7 @@ class Render {
             Math.floor(entity.position.y)
         )
         this.canvas.context.rotate(entity.rotation || 0)
-        this.canvas.context.fillStyle = entity.color
+        this.canvas.context.fillStyle = entity.color || "hotpink"
         this.canvas.context.fillRect(
             entity.width * entity.anchor.x * -1,
             entity.height * entity.anchor.y * -1,
@@ -25,5 +25,17 @@ class Render {
             entity.height
         )
         this.canvas.context.restore()
+    }
+    renderCircle(entity) {
+        this.canvas.context.fillStyle = entity.color || "#FFF"
+        this.canvas.context.beginPath()
+        this.canvas.context.arc(
+            entity.position.x,
+            entity.position.y,
+            entity.size,
+            0, Math.PI * 2,
+            false
+        )
+        this.canvas.context.fill()
     }
 }

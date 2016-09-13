@@ -4,10 +4,6 @@ const YELLOW = "#C6C013"
 const RED = "#EF2917"
 const WHITE = "#FFF"
 
-const COLORS = [
-    ORANGE, GREEN, YELLOW, RED, WHITE
-]
-
 class Projectile {
     constructor(protoprojectile) {
         this.affiliation = protoprojectile.affiliation || "GOOD"
@@ -17,7 +13,7 @@ class Projectile {
         this.color = this.affiliation == "GOOD" ? ORANGE : RED
         this.anchor = {x: 0.5, y: 0.5}
         this.collision = {
-            radius: this.affiliation == "GOOD" ? 6 : 3
+            radius: this.affiliation == "GOOD" ? 6 : 1
         }
 
         this.position = protoprojectile.position || {x: 0, y: 0}
@@ -34,6 +30,10 @@ class Projectile {
         }
     }
     update(delta) {
+        // if(this.affiliation == "BAD") {
+        //     this.position.y += this.speed * delta.glitchtime.inFrames
+        // }
+
         this.position.x += Math.cos(this.angle) * this.speed * delta.glitchtime.inFrames
         this.position.y += Math.sin(this.angle) * this.speed * delta.glitchtime.inFrames
         this.rotation += (Math.PI / 32) * this.speed * delta.glitchtime.inFrames

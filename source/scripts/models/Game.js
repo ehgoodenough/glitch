@@ -2,8 +2,9 @@ const AMOUNT_OF_STARS = 50
 
 class Game {
     constructor() {
-        this.projectiles = {}
         this.thugs = {}
+        this.projectiles = {}
+        this.explosions = {}
 
         this.player = new Player({
             game: this,
@@ -51,8 +52,23 @@ class Game {
         // Updating Entities //
         //////////////////////
 
+        if(this.player == undefined) {
+            if(Object.keys(this.explosions).length == 0
+            // && Object.keys(this.projectiles).length == 0
+            && Object.keys(this.thugs).length == 0) {
+                this.time = 0
+                this.player = new Player({
+                    game: this
+                })
+            }
+        }
+
         for(var key in this.stars) {
             this.stars[key].update(delta)
+        }
+
+        for(var key in this.explosions) {
+            this.explosions[key].update(delta)
         }
 
         if(this.player != undefined) {
@@ -83,11 +99,11 @@ class Game {
         // Rendering Entities //
         ///////////////////////
 
-        // render.clear()
         render.canvas.context.fillStyle = "rgba(42, 43, 42, " + delta.glitchtime.inNormals + ")"
         render.canvas.context.fillRect(0, 0, WIDTH, HEIGHT)
 
-        if(delta.glitchtime.inNormals > 0.9) {
+        if(this.player == undefined
+        || delta.glitchtime.inNormals > 0.9) {
             render.clear()
         }
 
@@ -105,6 +121,10 @@ class Game {
 
         if(this.player != undefined) {
             render.render(this.player)
+        }
+
+        for(var key in this.explosions) {
+            render.renderCircle(this.explosions[key])
         }
     }
 }

@@ -20,12 +20,12 @@ class Thug {
     constructor(protothug) {
         this.width = 16
         this.height = 12
-        this.color = "#C00"
+        this.color = "#888"
 
         this.position = protothug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
-        this.speed = 1
+        this.speed = 0.8
         this.rotation = 0
 
         this.key = KEY++
@@ -38,8 +38,8 @@ class Thug {
         this.hull = protothug.hull || 5
 
         this.weapon = {
-            rate: 3,
-            speed: 1,
+            rate: 4,
+            speed: 1.2,
             angle: Math.PI / +2,
             // in circle, or aimed?
             // if circle, how many loops?
@@ -53,25 +53,25 @@ class Thug {
             this.remove()
         }
 
-        if(this.isActive) {
-            this.counter += delta.glitchtime.inSeconds
-            if(this.counter >= this.weapon.rate) {
-                this.counter -= this.weapon.rate
-                for(var angle = 0; angle < Math.PI * 2; angle += Math.PI / 8) {
-                    var projectile = new Projectile({
-                        affiliation: "BAD",
-                        angle: angle,
-                        speed: this.weapon.speed,
-                        game: this.game,
-                        position: {
-                            x: this.position.x,
-                            y: this.position.y
-                        }
-                    })
-                }
-            }
-
+        if(this.isOnScreen) {
             if(this.game.player != undefined) {
+                this.counter += delta.glitchtime.inSeconds
+                if(this.counter >= this.weapon.rate) {
+                    this.counter -= this.weapon.rate
+                    for(var angle = 0; angle < Math.PI * 2; angle += Math.PI / 8) {
+                        var projectile = new Projectile({
+                            affiliation: "BAD",
+                            angle: angle,
+                            speed: this.weapon.speed,
+                            game: this.game,
+                            position: {
+                                x: this.position.x,
+                                y: this.position.y
+                            }
+                        })
+                    }
+                }
+
                 if(this.game.player.position.x <= this.position.x + (this.width * this.anchor.x)
                 && this.game.player.position.x >= this.position.x - (this.width * this.anchor.x)
                 && this.game.player.position.y <= this.position.y + (this.height * this.anchor.y)
@@ -81,13 +81,21 @@ class Thug {
             }
         }
     }
-    get isActive() {
+    get isOnScreen() {
         return this.position.y > 0
     }
     beDamaged(damage) {
         this.hull -= damage || 1
         if(this.hull <= 0) {
             this.remove()
+            var explosion = new Explosion({
+                game: this.game,
+                position: {
+                    x: this.position.x,
+                    y: this.position.y,
+                },
+                size: 10 + (Math.random() * 10)
+            })
         }
     }
     remove() {
