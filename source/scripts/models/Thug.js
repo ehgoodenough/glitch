@@ -1,7 +1,5 @@
 function getDirection(x, y) {
     var angle = Math.atan2(y, x)
-    // angle += angle < 0 ? Math.PI * 2 : 0
-    // angle -= Math.PI / 2
     return angle
 }
 
@@ -20,34 +18,25 @@ function getVector(p1, p2) {
 
 class Thug {
     constructor(thug) {
-        this.width = 12
-        this.height = 16
+        this.width = 16
+        this.height = 12
         this.color = "#C00"
 
-        this.position = {
-            x: thug.position.x,
-            y: thug.position.y
-        }
+        this.position = thug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
         this.speed = 1
         this.rotation = 0
 
         this.game = thug.game
+
+        this.key = KEY++
     }
     update(delta) {
-        var vector = getVector(this.position, this.game.player.position)
-        if(vector.distance > 50) {
-            this.position.x += Math.cos(vector.direction) * this.speed * delta.realtime.inFrames
-            this.position.y += Math.sin(vector.direction) * this.speed * delta.realtime.inFrames
-        } else {
-            //
-        }
+        this.position.x -= this.speed * delta.realtime.inFrames
 
         if(this.position.x < -1 * this.width) {
-            this.position.x = WIDTH + this.width
+            delete this.game.thugs[this.key]
         }
-
-        // this.rotation += (Math.PI / 32) * delta.realtime.inFrames
     }
 }

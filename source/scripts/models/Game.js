@@ -1,27 +1,36 @@
 class Game {
     constructor() {
-        this.player = new Player()
+        this.projectiles = {}
 
-        this.thugs = [
-            new Thug({
+        this.player = new Player({
+            game: this,
+        })
+
+        this.thugs = {
+            0: new Thug({
                 game: this,
                 position: {
                     x: WIDTH * 0.75,
                     y: HEIGHT / 2 - 20
                 }
             }),
-            // new Thug({
-            //     game: this,
-            //     position: {
-            //         x: WIDTH * 0.75,
-            //         y: HEIGHT / 2 + 20
-            //     }
-            // }),
-        ]
+            1: new Thug({
+                game: this,
+                position: {
+                    x: WIDTH * 0.75,
+                    y: HEIGHT / 2 + 20
+                }
+            }),
+        }
 
         this.time = 0
+        this.key = 0
     }
     update(delta) {
+        //////////////////////////////
+        // Calculating Glitch Time //
+        ////////////////////////////
+
         delta = {
             realtime: {
                 inMilliseconds: delta,
@@ -41,28 +50,34 @@ class Game {
         fluxtime = fluxtime * delta.realtime.inFrames
         delta.glitchtime.inFrames = fluxtime
 
+        ////////////////////////
+        // Updating Entities //
+        //////////////////////
+
         this.player.update(delta)
 
-        this.thugs.forEach((thug) => {
-            thug.update(delta)
-        })
-    }
-    render() {
+        for(var key in this.projectiles) {
+            this.projectiles[key].update(delta)
+        }
+
+        for(var key in this.thugs) {
+            this.thugs[key].update(delta)
+        }
+
+        /////////////////////////
+        // Rendering Entities //
+        ///////////////////////
+
         render.clear()
 
-        render.canvas.context.fillStyle = "#444"
-        render.canvas.context.beginPath()
-        render.canvas.context.arc(
-            this.player.position.x,
-            this.player.position.y,
-            50, 0, Math.PI * 2, false
-        )
-        render.canvas.context.fill()
-
-        this.thugs.forEach((thug) => {
-            render.render(thug)
-        })
+        for(var key in this.thugs) {
+            render.render(this.thugs[key])
+        }
 
         render.render(this.player)
+
+        for(var key in this.projectiles) {
+            render.render(this.projectiles[key])
+        }
     }
 }

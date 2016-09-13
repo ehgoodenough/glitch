@@ -2,17 +2,25 @@ const MINIMUM_VELOCITY = 0.001
 const MAXIMUM_VELOCITY = 1
 
 class Player {
-    constructor() {
-        this.width = 12
-        this.height = 16
+    constructor(protoplayer) {
+        this.width = 16
+        this.height = 12
         this.color = "#FFF"
 
         this.position = {x: WIDTH / 2, y: HEIGHT / 2}
         this.anchor = {x: 0.5, y: 0.5}
 
-        this.acceleration = 0.3
+        this.acceleration = 0.5
         this.deceleration = 1.3
         this.velocity = {x: 0, y: 0}
+
+        this.game = protoplayer.game
+
+        this.counter = 0
+        this.weapon = {
+            rate: 0.2,
+            speed: 4,
+        }
     }
     update(delta) {
         // Inputs
@@ -27,6 +35,19 @@ class Player {
         }
         if(Input.isDown("D") || Input.isDown("RIGHT")) {
             this.velocity.x += this.acceleration * delta.realtime.inFrames
+        }
+
+        this.counter += delta.realtime.inSeconds
+        if(this.counter >= this.weapon.rate) {
+            this.counter -= this.weapon.rate
+            var projectile = new Projectile({
+                speed: this.weapon.speed,
+                game: this.game,
+                position: {
+                    x: this.position.x,
+                    y: this.position.y
+                }
+            })
         }
 
         // Maximum Velocity
