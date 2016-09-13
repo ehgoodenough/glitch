@@ -1,7 +1,7 @@
 var KEY = 0
 
-const WIDTH = 640 / 2
-const HEIGHT = 360 / 2
+const WIDTH = 360 / 2
+const HEIGHT = 640 / 2
 
 var game = new Game()
 

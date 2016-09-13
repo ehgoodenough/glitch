@@ -1,27 +1,11 @@
 class Game {
     constructor() {
         this.projectiles = {}
+        this.thugs = {}
 
         this.player = new Player({
             game: this,
         })
-
-        this.thugs = {
-            0: new Thug({
-                game: this,
-                position: {
-                    x: WIDTH * 0.75,
-                    y: HEIGHT / 2 - 20
-                }
-            }),
-            1: new Thug({
-                game: this,
-                position: {
-                    x: WIDTH * 0.75,
-                    y: HEIGHT / 2 + 20
-                }
-            }),
-        }
 
         this.time = 0
         this.key = 0
@@ -64,20 +48,31 @@ class Game {
             this.thugs[key].update(delta)
         }
 
+        if(Object.keys(this.thugs).length < 1) {
+            var thug = new Thug({
+                game: this,
+                position: {
+                    x: (Math.random() * WIDTH * 0.80) + (WIDTH * 0.10),
+                    y: (Math.random() * HEIGHT * -0.5)
+                }
+            })
+        }
+
         /////////////////////////
         // Rendering Entities //
         ///////////////////////
 
+        // if(delta.glitchtime.inFrames > 0.9)
         render.clear()
 
         for(var key in this.thugs) {
             render.render(this.thugs[key])
         }
 
-        render.render(this.player)
-
         for(var key in this.projectiles) {
             render.render(this.projectiles[key])
         }
+
+        render.render(this.player)
     }
 }

@@ -17,26 +17,40 @@ function getVector(p1, p2) {
 }
 
 class Thug {
-    constructor(thug) {
+    constructor(protothug) {
         this.width = 16
         this.height = 12
         this.color = "#C00"
 
-        this.position = thug.position || {x: 0, y: 0}
+        this.position = protothug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
         this.speed = 1
         this.rotation = 0
 
-        this.game = thug.game
-
         this.key = KEY++
+
+        if(!!protothug.game) {
+            this.game = protothug.game
+            this.game.thugs[this.key] = this
+        }
+
+        this.hull = protothug.hull || 5
     }
     update(delta) {
-        this.position.x -= this.speed * delta.realtime.inFrames
+        this.position.y += this.speed * delta.glitchtime.inFrames
 
-        if(this.position.x < -1 * this.width) {
-            delete this.game.thugs[this.key]
+        if(this.position.y > HEIGHT + this.height) {
+            this.kill()
         }
+    }
+    beDamaged(damage) {
+        this.hull -= damage || 1
+        if(this.hull <= 0) {
+            this.kill()
+        }
+    }
+    kill() {
+        delete this.game.thugs[this.key]
     }
 }

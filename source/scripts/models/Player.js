@@ -3,11 +3,11 @@ const MAXIMUM_VELOCITY = 1
 
 class Player {
     constructor(protoplayer) {
-        this.width = 16
-        this.height = 12
+        this.width = 12
+        this.height = 16
         this.color = "#FFF"
 
-        this.position = {x: WIDTH / 2, y: HEIGHT / 2}
+        this.position = {x: WIDTH * 0.5, y: HEIGHT * 0.75}
         this.anchor = {x: 0.5, y: 0.5}
 
         this.acceleration = 0.5
@@ -20,6 +20,7 @@ class Player {
         this.weapon = {
             rate: 0.2,
             speed: 4,
+            angle: Math.PI / -2
         }
     }
     update(delta) {
@@ -42,6 +43,7 @@ class Player {
             this.counter -= this.weapon.rate
             var projectile = new Projectile({
                 speed: this.weapon.speed,
+                angle: this.weapon.angle,
                 game: this.game,
                 position: {
                     x: this.position.x,

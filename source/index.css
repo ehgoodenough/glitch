@@ -29,18 +29,17 @@ canvas {
     background-color: #222;
 }
 
-@media(min-aspect-ratio: 16/9) {
+@media(min-aspect-ratio: 9/16) {
+    #frame {
+        font-size: 6.25vh;
+        width: 56.25vh;
+        height: 100vh;
+    }
+}
+@media(max-aspect-ratio: 9/16) {
     #frame {
         font-size: 11.11vh;
         width: 177.777778vh;
         height: 100vh;
-    }
-}
-
-@media(max-aspect-ratio: 16/9) {
-    #frame {
-        font-size: 6.25vw;
-        height: 56.25vw;
-        width: 100vw;
     }
 }
