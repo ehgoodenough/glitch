@@ -89,4 +89,10 @@ class Player {
             this.velocity.y = 0
         }
     }
+    beDamaged() {
+        this.remove()
+    }
+    remove() {
+        delete this.game.player
+    }
 }

@@ -1,17 +1,25 @@
+const ORANGE = "#EF8A17"
+const GREEN = "#008148"
+const YELLOW = "#C6C013"
+const RED = "#EF2917"
+
 class Projectile {
     constructor(protoprojectile) {
-        this.width = 12
-        this.height = 8
-        this.color = "orange"
+        this.affiliation = protoprojectile.affiliation || "GOOD"
+
+        this.width = 9
+        this.height = 6
+        this.color = this.affiliation == "GOOD" ? ORANGE : RED
         this.anchor = {x: 0.5, y: 0.5}
-        this.collision = {radius: 8}
+        this.collision = {
+            radius: this.affiliation == "GOOD" ? 6 : 3
+        }
 
         this.position = protoprojectile.position || {x: 0, y: 0}
         this.rotation = protoprojectile.angle || 0
 
         this.speed = protoprojectile.speed || 1
         this.angle = protoprojectile.angle || 0
-        this.affiliation = protoprojectile.affiliation || "GOOD"
 
         this.key = KEY++
 
@@ -29,7 +37,7 @@ class Projectile {
         || this.position.y < -1 * this.height
         || this.position.x > WIDTH + this.width
         || this.position.y > HEIGHT + this.height) {
-            this.kill()
+            this.remove()
         }
 
         if(this.affiliation == "GOOD") {
@@ -40,13 +48,23 @@ class Projectile {
                 && this.position.y <= thug.position.y + (thug.height * thug.anchor.y) + this.collision.radius
                 && this.position.y >= thug.position.y - (thug.height * thug.anchor.y) - this.collision.radius) {
                     thug.beDamaged()
-                    this.kill()
+                    this.remove()
                     break
+                }
+            }
+        } else if(this.affiliation == "BAD") {
+            if(this.game.player != undefined) {
+                if(this.position.x <= this.game.player.position.x + (this.game.player.width * this.game.player.anchor.x) + this.collision.radius
+                && this.position.x >= this.game.player.position.x - (this.game.player.width * this.game.player.anchor.x) - this.collision.radius
+                && this.position.y <= this.game.player.position.y + (this.game.player.height * this.game.player.anchor.y) + this.collision.radius
+                && this.position.y >= this.game.player.position.y - (this.game.player.height * this.game.player.anchor.y) - this.collision.radius) {
+                    this.game.player.beDamaged()
+                    this.remove()
                 }
             }
         }
     }
-    kill() {
+    remove() {
         delete this.game.projectiles[this.key]
     }
 }

@@ -36,21 +36,61 @@ class Thug {
         }
 
         this.hull = protothug.hull || 5
+
+        this.weapon = {
+            rate: 3,
+            speed: 1,
+            angle: Math.PI / +2,
+            // in circle, or aimed?
+            // if circle, how many loops?
+        }
+        this.counter = Math.random() * this.weapon.rate
     }
     update(delta) {
         this.position.y += this.speed * delta.glitchtime.inFrames
 
         if(this.position.y > HEIGHT + this.height) {
-            this.kill()
+            this.remove()
         }
+
+        if(this.isActive) {
+            this.counter += delta.glitchtime.inSeconds
+            if(this.counter >= this.weapon.rate) {
+                this.counter -= this.weapon.rate
+                for(var angle = 0; angle < Math.PI * 2; angle += Math.PI / 8) {
+                    var projectile = new Projectile({
+                        affiliation: "BAD",
+                        angle: angle,
+                        speed: this.weapon.speed,
+                        game: this.game,
+                        position: {
+                            x: this.position.x,
+                            y: this.position.y
+                        }
+                    })
+                }
+            }
+
+            if(this.game.player != undefined) {
+                if(this.game.player.position.x <= this.position.x + (this.width * this.anchor.x)
+                && this.game.player.position.x >= this.position.x - (this.width * this.anchor.x)
+                && this.game.player.position.y <= this.position.y + (this.height * this.anchor.y)
+                && this.game.player.position.y >= this.position.y - (this.height * this.anchor.y)) {
+                    this.game.player.beDamaged()
+                }
+            }
+        }
+    }
+    get isActive() {
+        return this.position.y > 0
     }
     beDamaged(damage) {
         this.hull -= damage || 1
         if(this.hull <= 0) {
-            this.kill()
+            this.remove()
         }
     }
-    kill() {
+    remove() {
         delete this.game.thugs[this.key]
     }
 }
