@@ -1,4 +1,5 @@
 const AMOUNT_OF_STARS = 50
+const AMOUNT_OF_THUGS = 5
 
 class Game {
     constructor() {
@@ -84,7 +85,7 @@ class Game {
         }
 
         if(this.player != undefined) {
-            if(Object.keys(this.thugs).length < 5) {
+            if(Object.keys(this.thugs).length < AMOUNT_OF_THUGS) {
                 var thug = new Thug({
                     game: this,
                     position: {
@@ -121,10 +122,15 @@ class Game {
 
         if(this.player != undefined) {
             render.render(this.player)
+            render.renderText(this.player.killcount, {x: 4, y: 24})
         }
 
         for(var key in this.explosions) {
             render.renderCircle(this.explosions[key])
+        }
+        
+        if(this.string != undefined) {
+            render.renderText(this.string, {x: 27, y: HEIGHT / 2})
         }
     }
 }

@@ -38,4 +38,9 @@ class Render {
         )
         this.canvas.context.fill()
     }
+    renderText(string, position) {
+        this.canvas.context.fillStyle = "#FFF"
+        this.canvas.context.font = "24px monospace"
+        this.canvas.context.fillText(string, position.x, position.y)
+    }
 }

@@ -22,6 +22,8 @@ class Player {
             speed: 4,
             angle: Math.PI / -2
         }
+
+        this.killcount = 20
     }
     update(delta) {
         // Inputs
@@ -104,6 +106,12 @@ class Player {
     remove() {
         if(this.game && this.game.player) {
             delete this.game.player
+        }
+    }
+    countkill() {
+        this.killcount -= 1
+        if(this.killcount <= 0) {
+            this.game.string = "YOU WIN!"
         }
     }
 }

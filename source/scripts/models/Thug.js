@@ -47,6 +47,10 @@ class Thug {
         this.counter = Math.random() * this.weapon.rate
     }
     update(delta) {
+        if(this.game.player == undefined) {
+            this.speed = 2
+        }
+
         this.position.y += this.speed * delta.glitchtime.inFrames
 
         if(this.position.y > HEIGHT + this.height) {
@@ -54,7 +58,8 @@ class Thug {
         }
 
         if(this.isOnScreen) {
-            if(this.game.player != undefined) {
+            if(this.game.player != undefined
+            && this.game.player.killcount > 0) {
                 this.counter += delta.glitchtime.inSeconds
                 if(this.counter >= this.weapon.rate) {
                     this.counter -= this.weapon.rate
@@ -96,6 +101,7 @@ class Thug {
                 },
                 size: 10 + (Math.random() * 10)
             })
+            this.game.player.countkill()
         }
     }
     remove() {
