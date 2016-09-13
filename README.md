@@ -1,6 +1,8 @@
-# Overclocked #
+# Overclock #
 
 A game for [js13k 2016](http://2016.js13kgames.com). A game about a glitch in time.
+
+![http://i.imgur.com/vi1QS5I.gif](Overclock)
 
 ### Getting Started ###
 
