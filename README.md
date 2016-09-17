@@ -34,7 +34,6 @@ The deadline for submission is September 13th, 2016.
 - ~~Add some other sprites. Spawn and move the sprites from right to left.~~
 - ~~Slowdown and speedup time. If it's easier, just jump between speeds, and worry about smoothing between speeds later.~~
 - Add the smearing glitch effect during slowdown and speedup.
-- Add spinning as attacking. You can attack them, and they can attack you.
 
 ### License ###
 

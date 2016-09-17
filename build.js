@@ -80,9 +80,7 @@ Rimraf("./builds", function() {
             // Gulp.srcmaps.init(),
             Gulp.concat("index.js"),
             Gulp.babel(),
-            Gulp.uglify({
-                mangle: true
-            }),
+            Gulp.uglify(),
             // Gulp.srcmaps.write(),
             Gulp.dest("./builds"),
             Gulp.report(),
