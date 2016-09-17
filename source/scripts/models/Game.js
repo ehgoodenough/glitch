@@ -20,6 +20,8 @@ class Game {
             this.stars.push(new Star())
         }
 
+        this.string = "YOU WIN!!"
+
         this.time = 0
         this.key = 0
     }
@@ -146,7 +148,7 @@ class Game {
 
         if(this.player != undefined) {
             render.render(this.player)
-            render.renderText(this.player.killcount + " out of 20", {x: 4, y: HEIGHT - 10})
+            render.renderText(this.player.killcount + " out of 20", {y: HEIGHT - (10 * FONT_SCALE)})
         }
 
         for(var key in this.explosions) {
@@ -154,7 +156,7 @@ class Game {
         }
 
         if(this.string != undefined) {
-            render.renderText(this.string, {x: 10, y: HEIGHT / 2})
+            render.renderText(this.string, {y: HEIGHT / 2})
         }
     }
 }

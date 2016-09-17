@@ -39,15 +39,40 @@ class Render {
         this.canvas.context.fill()
     }
     renderText(string, position) {
-        this.canvas.context.fillStyle = "#FFF"
-        this.canvas.context.font = "24px monospace"
-        this.canvas.context.fillText(string, position.x, position.y)
+        // this.canvas.context.fillStyle = "#FFF"
+        // this.canvas.context.font = "24px monospace"
+        // this.canvas.context.fillText(string, position.x, position.y)
 
-        this.canvas.context.drawImage(FONT["A"].canvas, 1, 1)
+        if(position.x == undefined) {
+            var width = 0
+
+            for(var key in string) {
+                var character = string[key].toUpperCase()
+                if(FONT[character] != undefined) {
+                    width += FONT[character].width
+                    width += FONT_SCALE
+                }
+            }
+
+            width -= FONT_SCALE
+
+            position.x = (WIDTH - width) / 2
+        }
+
+        for(var key in string) {
+            var character = string[key].toUpperCase()
+            if(FONT[character] != undefined) {
+                this.canvas.context.drawImage(FONT[character].canvas, position.x, position.y)
+
+                position.x += FONT[character].width
+                position.x += FONT_SCALE
+            }
+        }
     }
 }
 
-var FONT_SCALE = 3
+const FONT_SCALE = 3
+const FONT_COLOR = "#FFF"
 
 class FontCharacter {
     constructor(protocharacter) {
@@ -56,19 +81,107 @@ class FontCharacter {
         this.canvas.height = protocharacter.length * FONT_SCALE
 
         this.canvas.context = this.canvas.getContext("2d")
-        this.canvas.context.fillStyle = "#FFF"
+        this.canvas.context.fillStyle = FONT_COLOR
 
         for(var y = 0; y < protocharacter.length; y++) {
             for(var x = 0; x < protocharacter[y].length; x++) {
                 if(protocharacter[y][x] == "X") {
-                    this.canvas.context.fillRect(x * FONT_SCALE, y * FONT_SCALE, FONT_SCALE, FONT_SCALE)
+                    this.canvas.context.fillRect(
+                        x * FONT_SCALE,
+                        y * FONT_SCALE,
+                        FONT_SCALE,
+                        FONT_SCALE
+                    )
                 }
             }
         }
     }
+    get width() {
+        return this.canvas.width
+    }
+    get height() {
+        return this.canvas.height
+    }
 }
 
 var FONT = {
+    " ": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+    ],
+    1: [
+        " X",
+        "XX",
+        " X",
+        " X",
+        " X",
+    ],
+    2: [
+        " XX ",
+        "X  X",
+        "  X ",
+        " X  ",
+        "XXXX",
+    ],
+    3: [
+        "XXX ",
+        "   X",
+        " XXX",
+        "   X",
+        "XXX"
+    ],
+    4: [
+        "  X ",
+        " XX ",
+        "X X ",
+        "XXXX",
+        "  X ",
+    ],
+    5: [
+        "XXXX",
+        "X   ",
+        "XXX ",
+        "   X",
+        "XXX ",
+    ],
+    6: [
+        " XX ",
+        "X   ",
+        "XXX ",
+        "X  X",
+        " XX ",
+    ],
+    7: [
+        "XXXX",
+        "   X",
+        "  X ",
+        " X  ",
+        " X  ",
+    ],
+    8: [
+        " XX ",
+        "X  X",
+        " XX ",
+        "X  X",
+        " XX",
+    ],
+    9: [
+        " XX ",
+        "X  X",
+        " XXX",
+        "   X",
+        " XX ",
+    ],
+    0: [
+        " XX ",
+        "X  X",
+        "X  X",
+        "X  X",
+        " XX",
+    ],
     A: [
         " XX ",
         "X  X",
@@ -90,7 +203,7 @@ var FONT = {
         "X  ",
         " XX",
     ],
-    B: [
+    D: [
         "XXX ",
         "X  X",
         "X  X",
@@ -117,6 +230,55 @@ var FONT = {
         "X XX",
         "X  X",
         " XXX",
+    ],
+    K: [
+        "X  X",
+        "X X ",
+        "XX  ",
+        "X X ",
+        "X  X",
+    ],
+    L: [
+        "X   ",
+        "X   ",
+        "X   ",
+        "X   ",
+        "XXXX",
+    ],
+    O: [
+        " XX ",
+        "X  X",
+        "X  X",
+        "X  X",
+        " XX ",
+    ],
+    R: [
+        "XXX ",
+        "X  X",
+        "X  X",
+        "XXX ",
+        "X  X",
+    ],
+    T: [
+        "XXX",
+        " X ",
+        " X ",
+        " X ",
+        " X ",
+    ],
+    U: [
+        "X  X",
+        "X  X",
+        "X  X",
+        "X  X",
+        " XX ",
+    ],
+    V: [
+        "X  X",
+        "X  X",
+        "X X ",
+        "X X ",
+        " X  ",
     ]
 }
 
