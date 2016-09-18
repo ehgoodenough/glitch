@@ -48,7 +48,8 @@ class Projectile {
                 }
             }
         } else if(this.affiliation == "BAD") {
-            if(this.game.player != undefined) {
+            if(this.game.player != undefined
+            && this.game.player.killcount > 0) {
                 if(this.position.x <= this.game.player.position.x + (this.game.player.width * this.game.player.anchor.x) + this.collision.radius
                 && this.position.x >= this.game.player.position.x - (this.game.player.width * this.game.player.anchor.x) - this.collision.radius
                 && this.position.y <= this.game.player.position.y + (this.game.player.height * this.game.player.anchor.y) + this.collision.radius

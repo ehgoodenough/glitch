@@ -16,7 +16,6 @@ var BrowserSync = require("browser-sync")
 Gulp.if = require("gulp-if")
 Gulp.babel = require("gulp-babel")
 Gulp.concat = require("gulp-concat")
-Gulp.srcmaps = require("gulp-sourcemaps")
 Gulp.uglify = require("gulp-uglify")
 Gulp.report = function() {
     var uptime = process.uptime()
@@ -35,72 +34,68 @@ var isReady = false
 var server = null
 
 Rimraf("./builds", function() {
-    Chokidar.watch("./source/index.html").on("all", function(event, path) {
+    Chokidar.watch("./source/index.html").on("all", (event) => {
         Pump([
             Gulp.src("source/index.html"),
             Gulp.dest("./builds"),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
-                return -1
-            }
-            if(server == null) {
-                server = BrowserSync({
-                    server: "./builds",
-                    open: true, notify: false,
-                    host: HOST, port: PORT,
-                    logLevel: "silent",
-                })
             } else {
-                server.reload()
+                if(server == null) {
+                    server = BrowserSync({
+                        server: "./builds",
+                        open: true, notify: false,
+                        host: HOST, port: PORT,
+                        logLevel: "silent",
+                    })
+                } else {
+                    server.reload()
+                }
             }
         })
     })
-    Chokidar.watch("./source/index.css").on("all", function(event, path) {
+    Chokidar.watch("./source/index.css").on("all", (event) => {
         Pump([
             Gulp.src("source/index.css"),
             Gulp.dest("./builds"),
         ], function(error) {
             if(error != undefined) {
                 console.log(error.toString())
-                return -1
-            }
-            if(server != null) {
-                server.reload()
+            } else {
+                if(server != null) {
+                    server.reload()
+                }
             }
         })
     })
-    Chokidar.watch("./source/**/*.js").on("all", function(event, path) {
+    Chokidar.watch("./source/**/*.js").on("all", (event, path) => {
         if(isReady == false && path != "source/index.js") {return}
         Pump([
             Gulp.src([
                 "./source/scripts/**/*.js",
                 "./source/index.js",
             ]),
-            // Gulp.srcmaps.init(),
             Gulp.concat("index.js"),
             Gulp.babel(),
             Gulp.uglify(),
-            // Gulp.srcmaps.write(),
             Gulp.dest("./builds"),
             Gulp.report(),
-        ], function(error) {
+        ], (error) => {
             if(error != undefined) {
-                console.log(error.toString())
                 var message = "throw '" + error.message + "'"
                 fs.writeFile("./builds/index.js", message)
+                console.log(error.toString())
             }
             if(server != null) {
                 server.reload()
             }
         })
-    }).on("ready", function() {
+    }).on("ready", () => {
         isReady = true
     })
 })
 
-// get directory size, not file size
-// srcmaps should be included but not embedded
 // cache any files that haven't been touched
 // lint all files before compilation
 // minify the HTML and CSS as well
