@@ -31,18 +31,21 @@ class Player {
     }
     update(delta) {
         // Inputs
-        if(Input.isDown("W") || Input.isDown("UP")) {
-            this.velocity.y -= this.acceleration * delta.realtime.inFrames
-        }
-        if(Input.isDown("S") || Input.isDown("DOWN")) {
-            this.velocity.y += this.acceleration * delta.realtime.inFrames
-        }
-        if(Input.isDown("A") || Input.isDown("LEFT")) {
-            this.velocity.x -= this.acceleration * delta.realtime.inFrames
-        }
-        if(Input.isDown("D") || Input.isDown("RIGHT")) {
-            this.velocity.x += this.acceleration * delta.realtime.inFrames
-        }
+        var inputs = Input.getDirection()
+        this.velocity.x += inputs.x * this.acceleration * delta.realtime.inFrames
+        this.velocity.y += inputs.y * this.acceleration * delta.realtime.inFrames
+        // if(Input.isDown("W") || Input.isDown("UP")) {
+        //     this.velocity.y -= this.acceleration * delta.realtime.inFrames
+        // }
+        // if(Input.isDown("S") || Input.isDown("DOWN")) {
+        //     this.velocity.y += this.acceleration * delta.realtime.inFrames
+        // }
+        // if(Input.isDown("A") || Input.isDown("LEFT")) {
+        //     this.velocity.x -= this.acceleration * delta.realtime.inFrames
+        // }
+        // if(Input.isDown("D") || Input.isDown("RIGHT")) {
+        //     this.velocity.x += this.acceleration * delta.realtime.inFrames
+        // }
 
         // Maximum Velocity
         if(this.velocity.x < -1 * MAXIMUM_VELOCITY) {
@@ -78,7 +81,6 @@ class Player {
             inp.x = 0
             inp.y = 0
         }
-
 
         // Shooting
         this.counter += delta.realtime.inSeconds
