@@ -6,7 +6,7 @@ class Star {
         }
 
         this.parallax = Math.random() * 2
-        this.speed = 0.5
+        this.speed = 0.5 / (20/15)
 
         this.width = Math.round(this.parallax)
         this.height = Math.round(this.parallax)

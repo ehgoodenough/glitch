@@ -14,16 +14,16 @@ class Player {
         this.position = {x: WIDTH * 0.5, y: HEIGHT * 0.75}
         this.anchor = {x: 0.5, y: 0.5}
 
-        this.acceleration = 0.5
-        this.deceleration = 1.3
+        this.acceleration = 0.5 * (20/15)
+        this.deceleration = 1.3 * (20/15)
         this.velocity = {x: 0, y: 0}
 
         this.game = protoplayer.game
 
         this.counter = 0
         this.weapon = {
-            rate: 0.2,
-            speed: 2,
+            rate: 0.2 * (20/15),
+            speed: 4 / (2),
             angle: Math.PI / -2
         }
 

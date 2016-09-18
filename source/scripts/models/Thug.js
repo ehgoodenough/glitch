@@ -8,7 +8,7 @@ class Thug {
         this.position = protothug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
-        this.speed = 0.8 / 2
+        this.speed = 0.8 / (20/15)
         this.rotation = 0
 
         this.key = KEY++
@@ -21,7 +21,7 @@ class Thug {
         this.hull = protothug.hull || 5
 
         this.weapon = {
-            rate: 6,
+            rate: 4 * (20/15),
             speed: 0.6,
         }
         this.counter = Math.random() * (this.weapon.rate / 2)

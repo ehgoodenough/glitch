@@ -4,7 +4,7 @@ class Explosion {
         this.size = protoexplosion.size || 10
         this.maxsize = this.size
         this.color = "#FFF"
-        this.speed = 0.2
+        this.speed = 0.2 * (20/15)
 
         this.key = KEY++
 
