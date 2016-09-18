@@ -1,9 +1,3 @@
-const ORANGE = "#EF8A17"
-const GREEN = "#008148"
-const YELLOW = "#C6C013"
-const RED = "#EF2917"
-const WHITE = "#FFF"
-
 class Projectile {
     constructor(protoprojectile) {
         this.affiliation = protoprojectile.affiliation || "GOOD"

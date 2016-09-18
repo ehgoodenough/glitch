@@ -35,6 +35,12 @@ The deadline for submission is September 13th, 2016.
 - ~~Slowdown and speedup time. If it's easier, just jump between speeds, and worry about smoothing between speeds later.~~
 - Add the smearing glitch effect during slowdown and speedup.
 
+### Credits ###
+
+[Code by ehgoodenough](http://github.com/ehgoodenough/overclock)
+
+[Font by DuffsDevice](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=468)
+
 ### License ###
 
 This project is licensed under MIT.

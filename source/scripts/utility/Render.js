@@ -17,13 +17,22 @@ class Render {
             Math.floor(entity.position.y)
         )
         this.canvas.context.rotate(entity.rotation || 0)
-        this.canvas.context.fillStyle = entity.color || "hotpink"
-        this.canvas.context.fillRect(
-            entity.width * entity.anchor.x * -1,
-            entity.height * entity.anchor.y * -1,
-            entity.width,
-            entity.height
-        )
+
+        if(entity.sprite) {
+            this.canvas.context.drawImage(
+                entity.sprite.canvas,
+                entity.width * entity.anchor.x * -1,
+                entity.height * entity.anchor.y * -1
+            )
+        } else {
+            this.canvas.context.fillStyle = entity.color || "hotpink"
+            this.canvas.context.fillRect(
+                entity.width * entity.anchor.x * -1,
+                entity.height * entity.anchor.y * -1,
+                entity.width,
+                entity.height
+            )
+        }
         this.canvas.context.restore()
     }
     renderCircle(entity) {
@@ -39,22 +48,15 @@ class Render {
         this.canvas.context.fill()
     }
     renderText(string, position) {
-        // this.canvas.context.fillStyle = "#FFF"
-        // this.canvas.context.font = "24px monospace"
-        // this.canvas.context.fillText(string, position.x, position.y)
-
         if(position.x == undefined) {
-            var width = 0
-
+            var width = 0 - PIXEL_SCALE
             for(var key in string) {
                 var character = string[key].toUpperCase()
                 if(FONT[character] != undefined) {
                     width += FONT[character].width
-                    width += FONT_SCALE
+                    width += PIXEL_SCALE
                 }
             }
-
-            width -= FONT_SCALE
 
             position.x = (WIDTH - width) / 2
         }
@@ -65,32 +67,32 @@ class Render {
                 this.canvas.context.drawImage(FONT[character].canvas, position.x, position.y)
 
                 position.x += FONT[character].width
-                position.x += FONT_SCALE
+                position.x += PIXEL_SCALE
             }
         }
     }
 }
 
-const FONT_SCALE = 3
-const FONT_COLOR = "#FFF"
+const PIXEL_SCALE = 3
 
-class FontCharacter {
-    constructor(protocharacter) {
+class Sprite {
+    constructor(pixels, colors, scale) {
+        scale = scale || PIXEL_SCALE
         this.canvas = document.createElement("canvas")
-        this.canvas.width = protocharacter[0].length * FONT_SCALE
-        this.canvas.height = protocharacter.length * FONT_SCALE
+        this.canvas.width = pixels[0].length * scale
+        this.canvas.height = pixels.length * scale
 
         this.canvas.context = this.canvas.getContext("2d")
-        this.canvas.context.fillStyle = FONT_COLOR
 
-        for(var y = 0; y < protocharacter.length; y++) {
-            for(var x = 0; x < protocharacter[y].length; x++) {
-                if(protocharacter[y][x] == "X") {
+        for(var y = 0; y < pixels.length; y++) {
+            for(var x = 0; x < pixels[y].length; x++) {
+                var pixel = pixels[y][x]
+                if(colors[pixel] != undefined) {
+                    this.canvas.context.fillStyle = colors[pixel]
                     this.canvas.context.fillRect(
-                        x * FONT_SCALE,
-                        y * FONT_SCALE,
-                        FONT_SCALE,
-                        FONT_SCALE
+                        x * scale,
+                        y * scale,
+                        scale, scale
                     )
                 }
             }
@@ -104,14 +106,15 @@ class FontCharacter {
     }
 }
 
+const ORANGE = "#EF8A17"
+const GREEN = "#008148"
+const YELLOW = "#C6C013"
+const RED = "#EF2917"
+const BLUE = "#4A508A"
+const WHITE = "#FFF"
+const BLACK = "#000"
+
 var FONT = {
-    " ": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-    ],
     1: [
         " X",
         "XX",
@@ -231,6 +234,13 @@ var FONT = {
         "X  X",
         " XXX",
     ],
+    I: [
+        "XXX",
+        " X ",
+        " X ",
+        " X ",
+        "XXX",
+    ],
     K: [
         "X  X",
         "X X ",
@@ -244,6 +254,13 @@ var FONT = {
         "X   ",
         "X   ",
         "XXXX",
+    ],
+    N: [
+        "X  X",
+        "XX X",
+        "X XX",
+        "X  X",
+        "X  X",
     ],
     O: [
         " XX ",
@@ -279,9 +296,69 @@ var FONT = {
         "X X ",
         "X X ",
         " X  ",
+    ],
+    W: [
+        "X   X",
+        "X   X",
+        "X X X",
+        "X X X",
+        " X X ",
+    ],
+    Y: [
+        "X  X",
+        "X  X",
+        " XXX",
+        "   X",
+        "XXX ",
+    ],
+    " ": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+    ],
+    "!": [
+        "X",
+        "X",
+        "X",
+        " ",
+        "X",
     ]
 }
 
 for(var key in FONT) {
-    FONT[key] = new FontCharacter(FONT[key])
+    FONT[key] = new Sprite(FONT[key], {
+        "X": WHITE
+    })
+}
+
+var SPRITES = {
+    "rocket": [
+        "  WW  WW  ",
+        " WOW  WOW ",
+        " WOW  WOW ",
+        "WOOW  WOWW",
+        "WOOWWWWOOW",
+        "WOOOOOOOOW",
+        "WOOOOOOOOW",
+        " WOOOOOOW ",
+        " WOOOOOOW ",
+        "WOOOOOOOOW",
+        "WOOOOOOOOW",
+        "WOOOOOOOOW",
+        " WOOOOOOW ",
+        " WWOOOOWW ",
+        "   WWWW   ",
+    ],
+    "ufo": [
+        "W"
+    ]
+}
+
+for(var key in SPRITES) {
+    SPRITES[key] = new Sprite(SPRITES[key], {
+        "W": BLUE,
+        "O": BLACK,
+    }, 2)
 }

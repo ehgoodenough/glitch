@@ -7,6 +7,10 @@ class Player {
         this.height = 16
         this.color = "#FFF"
 
+        this.sprite = SPRITES.rocket
+        this.width = this.sprite.width
+        this.height = this.sprite.height
+
         this.position = {x: WIDTH * 0.5, y: HEIGHT * 0.75}
         this.anchor = {x: 0.5, y: 0.5}
 
