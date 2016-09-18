@@ -44,20 +44,6 @@ class Player {
             this.velocity.x += this.acceleration * delta.realtime.inFrames
         }
 
-        this.counter += delta.realtime.inSeconds
-        if(this.counter >= this.weapon.rate) {
-            this.counter -= this.weapon.rate
-            var projectile = new Projectile({
-                speed: this.weapon.speed,
-                angle: this.weapon.angle,
-                game: this.game,
-                position: {
-                    x: this.position.x,
-                    y: this.position.y
-                }
-            })
-        }
-
         // Maximum Velocity
         if(this.velocity.x < -1 * MAXIMUM_VELOCITY) {
             this.velocity.x = -1 * MAXIMUM_VELOCITY
@@ -72,16 +58,6 @@ class Player {
             this.velocity.y = +1 * MAXIMUM_VELOCITY
         }
 
-        // Collision
-        if(this.position.x + this.velocity.x < 0
-        || this.position.x + this.velocity.x > WIDTH) {
-            this.velocity.x = 0
-        }
-        if(this.position.y + this.velocity.y < 0
-        || this.position.y + this.velocity.y > HEIGHT) {
-            this.velocity.y = 0
-        }
-
         // Translation
         this.position.x += this.velocity.x * delta.realtime.inFrames
         this.position.y += this.velocity.y * delta.realtime.inFrames
@@ -93,6 +69,30 @@ class Player {
             this.velocity.x = 0
         } if(Math.abs(this.velocity.y) < MINIMUM_VELOCITY) {
             this.velocity.y = 0
+        }
+
+        // More Inputs
+        if(inp.mouse.isDown) {
+            this.position.x += inp.x
+            this.position.y += inp.y
+            inp.x = 0
+            inp.y = 0
+        }
+
+
+        // Shooting
+        this.counter += delta.realtime.inSeconds
+        if(this.counter >= this.weapon.rate) {
+            this.counter -= this.weapon.rate
+            var projectile = new Projectile({
+                speed: this.weapon.speed,
+                angle: this.weapon.angle,
+                game: this.game,
+                position: {
+                    x: this.position.x,
+                    y: this.position.y
+                }
+            })
         }
     }
     beDamaged() {

@@ -20,8 +20,8 @@ var SPRITES = {
         "     XXXXX     ",
         "    X.....X    ",
         "   X.......X   ",
-        "   X.......X   ",
-        "  X.........X  ",
+        "   X..WWW..X   ",
+        "  X...WWW...X  ",
         " X...........X ",
         "X.............X",
         "X.............X",
@@ -34,7 +34,9 @@ for(var key in SPRITES) {
     SPRITES[key] = new Sprite(SPRITES[key], {
         "B": BLUE,
         ",": BLACK,
-        "X": RED,
+        "X": GRAY,
         ".": BLACK,
+        "R": RED,
+        "W": WHITE,
     })
 }

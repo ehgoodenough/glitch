@@ -23,3 +23,36 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("keyup", function(event) {
     delete Input.state[event.keyCode]
 })
+
+var inp = {
+    x: 0,
+    y: 0,
+    mouse: {
+        isDown: false,
+        position: {
+            x: 0,
+            y:0,
+        }
+    }
+}
+
+const MOUSE_SENSITIVITY = 2
+
+document.addEventListener("mousedown", function(event) {
+    inp.mouse.isDown = true
+    inp.mouse.x = event.clientX
+    inp.mouse.y = event.clientY
+})
+
+document.addEventListener("mousemove", function(event) {
+    if(inp.mouse.isDown == true) {
+        inp.x += (event.clientX - inp.mouse.x) / MOUSE_SENSITIVITY
+        inp.y += (event.clientY - inp.mouse.y) / MOUSE_SENSITIVITY
+        inp.mouse.x = event.clientX
+        inp.mouse.y = event.clientY
+    }
+})
+
+document.addEventListener("mouseup", function(event) {
+    inp.mouse.isDown = false
+})
