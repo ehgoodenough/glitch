@@ -3,7 +3,7 @@ const AMOUNT_OF_THUGS = 5
 
 var hasOverclocked = window.localStorage.hasOverclocked == "true" || false
 var timesDied = 0
-const TIMES_TO_DIE = 3
+const TIMES_TO_DIE = 2
 
 class Game {
     constructor() {
@@ -146,7 +146,7 @@ class Game {
 
         if(this.player != undefined) {
             render.render(this.player)
-            render.renderText(this.player.killcount + " out of 20", {y: HEIGHT - (10 * PIXEL_SCALE)})
+            render.renderText(this.player.killcount + " out of 20", {y: HEIGHT - (10 * 2)})
         }
 
         for(var key in this.explosions) {

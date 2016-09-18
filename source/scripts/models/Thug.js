@@ -29,7 +29,7 @@ class Thug {
         this.position = protothug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
-        this.speed = 0.8
+        this.speed = 0.8 / 2
         this.rotation = 0
 
         this.key = KEY++
@@ -44,11 +44,8 @@ class Thug {
         this.weapon = {
             rate: 4,
             speed: 0.6,
-            angle: Math.PI / +2,
-            // in circle, or aimed?
-            // if circle, how many loops?
         }
-        this.counter = Math.random() * this.weapon.rate
+        this.counter = this.weapon.rate
     }
     update(delta) {
         if(this.game.player == undefined) {
