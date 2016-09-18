@@ -22,6 +22,10 @@ class Thug {
         this.height = 12
         this.color = "#888"
 
+        this.sprite = SPRITES.ufo
+        this.width = this.sprite.width
+        this.height = this.sprite.height
+
         this.position = protothug.position || {x: 0, y: 0}
         this.anchor = {x: 0.5, y: 0.5}
 
@@ -39,7 +43,7 @@ class Thug {
 
         this.weapon = {
             rate: 4,
-            speed: 1.2,
+            speed: 0.6,
             angle: Math.PI / +2,
             // in circle, or aimed?
             // if circle, how many loops?

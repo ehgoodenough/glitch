@@ -5,7 +5,7 @@ class Star {
             y: Math.random() * HEIGHT,
         }
 
-        this.parallax = Math.random() * 3
+        this.parallax = Math.random() * 2
         this.speed = 0.5
 
         this.width = Math.round(this.parallax)

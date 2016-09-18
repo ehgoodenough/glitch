@@ -23,7 +23,7 @@ class Player {
         this.counter = 0
         this.weapon = {
             rate: 0.2,
-            speed: 4,
+            speed: 2,
             angle: Math.PI / -2
         }
 

@@ -330,7 +330,7 @@ var FONT = {
 for(var key in FONT) {
     FONT[key] = new Sprite(FONT[key], {
         "X": WHITE
-    })
+    }, 2)
 }
 
 var SPRITES = {
@@ -352,7 +352,16 @@ var SPRITES = {
         "   WWWW   ",
     ],
     "ufo": [
-        "W"
+        "     XXXXX     ",
+        "    X.....X    ",
+        "   X.......X   ",
+        "   X.......X   ",
+        "  X.........X  ",
+        " X...........X ",
+        "X.............X",
+        "X.............X",
+        " XX.........XX ",
+        "   XXXXXXXXX   ",
     ]
 }
 
@@ -360,5 +369,7 @@ for(var key in SPRITES) {
     SPRITES[key] = new Sprite(SPRITES[key], {
         "W": BLUE,
         "O": BLACK,
-    }, 2)
+        "X": RED,
+        ".": BLACK,
+    }, 1)
 }
