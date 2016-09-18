@@ -115,8 +115,5 @@ class Player {
     }
     countkill() {
         this.killcount -= 1
-        if(this.killcount <= 0) {
-            this.game.string = "YOU WIN!!"
-        }
     }
 }

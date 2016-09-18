@@ -1,27 +1,6 @@
-function getDirection(x, y) {
-    var angle = Math.atan2(y, x)
-    return angle
-}
-
-function getDistance(x, y) {
-    return Math.sqrt(x*x + y*y) || 0
-}
-
-function getVector(p1, p2) {
-    var x = p2.x - p1.x
-    var y = p2.y - p1.y
-    return {
-        direction: getDirection(x, y),
-        distance: getDistance(x, y)
-    }
-}
-
 class Thug {
     constructor(protothug) {
-        this.width = 16
-        this.height = 12
-        this.color = "#888"
-
+        this.color = RED
         this.sprite = SPRITES.ufo
         this.width = this.sprite.width
         this.height = this.sprite.height

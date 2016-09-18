@@ -146,7 +146,16 @@ class Game {
 
         if(this.player != undefined) {
             render.render(this.player)
-            render.renderText(this.player.killcount + " out of 20", {y: HEIGHT - (10 * 2)})
+
+            if(this.player.killcount > 0) {
+                render.renderText(this.player.killcount + " out of 20", {
+                    x: undefined, y: HEIGHT - (10 * 2)
+                })
+            } else {
+                render.renderText("YOU WIN!!", {
+                    x: undefined, y: HEIGHT - (10 * 2)
+                })
+            }
         }
 
         for(var key in this.explosions) {

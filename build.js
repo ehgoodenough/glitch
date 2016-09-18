@@ -73,6 +73,7 @@ Rimraf("./builds", function() {
         if(isReady == false && path != "source/index.js") {return}
         Pump([
             Gulp.src([
+                "./source/scripts/utility/**/*.js",
                 "./source/scripts/**/*.js",
                 "./source/index.js",
             ]),
