@@ -21,8 +21,8 @@ class Thug {
         this.hull = protothug.hull || 5
 
         this.weapon = {
-            rate: 4 * (20/15),
-            speed: 0.6,
+            rate: 4 + 2,
+            speed: 0.6 * (20/15),
         }
         this.counter = Math.random() * (this.weapon.rate / 2)
     }
