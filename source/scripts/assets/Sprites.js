@@ -1,3 +1,6 @@
+import Sprite from "scripts/utility/Sprite.js"
+import COLORS from "scripts/utility/Colors.js"
+
 var SPRITES = {
     "rocket": [
         "  BB  BB  ",
@@ -32,11 +35,13 @@ var SPRITES = {
 
 for(var key in SPRITES) {
     SPRITES[key] = new Sprite(SPRITES[key], {
-        "B": BLUE,
-        ",": BLACK,
-        "X": GRAY,
-        ".": BLACK,
-        "R": RED,
-        "W": WHITE,
+        "B": COLORS.BLUE,
+        ",": COLORS.BLACK,
+        "X": COLORS.GRAY,
+        ".": COLORS.BLACK,
+        "R": COLORS.RED,
+        "W": COLORS.WHITE,
     })
 }
+
+export default SPRITES

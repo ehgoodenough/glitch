@@ -1,4 +1,4 @@
-class Explosion {
+export default class Explosion {
     constructor(protoexplosion) {
         this.position = protoexplosion.position || {x: 0, y: 0}
         this.size = protoexplosion.size || 10

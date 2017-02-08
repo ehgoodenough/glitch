@@ -1,4 +1,9 @@
-class Star {
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
+import COLORS from "scripts/utility/Colors.js"
+
+export default class Star {
     constructor() {
         this.position = {
             x: Math.random() * WIDTH,
@@ -11,7 +16,7 @@ class Star {
         this.width = Math.round(this.parallax)
         this.height = Math.round(this.parallax)
         this.anchor = {x: 0.5, y: 0.5}
-        this.color = Math.random() < 0.5 ? BLUE : WHITE
+        this.color = Math.random() < 0.5 ? COLORS.BLUE : COLORS.WHITE
     }
     update(delta) {
         this.position.y += this.parallax * this.speed * delta.glitchtime.inFrames

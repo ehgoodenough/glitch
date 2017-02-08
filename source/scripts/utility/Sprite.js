@@ -1,4 +1,4 @@
-class Sprite {
+export default class Sprite {
     constructor(pixels, colors, scale = 1) {
         this.canvas = document.createElement("canvas")
         this.canvas.context = this.canvas.getContext("2d")

@@ -14,15 +14,9 @@ Have node v4 and npm v3.
 Build the game.
 
     $ npm install
-    $ node build
+    $ npm start
 
 When reading the code, start at `source/index.js`.
-
-### Requirements ###
-
-Must be less than 13 kilobytes when zipped.
-
-Support at least Chrome and Firefox.
 
 ### Credits ###
 
@@ -32,3 +26,14 @@ Support at least Chrome and Firefox.
 ### License ###
 
 This project is licensed under MIT.
+
+### To Do ###
+
+#### Code Smells ####
+- Remove the global variables defined in `Game.js`.
+- Remove the duplicate declarations of `WIDTH` and `HEIGHT`.
+- Move `SPRITES` and `COLORS` into a data directory.
+
+#### Dev Life ####
+
+- Import `statgrab`.

@@ -1,10 +1,15 @@
-class Projectile {
+import COLORS from "scripts/utility/Colors.js"
+
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
+export default class Projectile {
     constructor(protoprojectile) {
         this.affiliation = protoprojectile.affiliation || "GOOD"
 
         this.width = 3 * 2
         this.height = 2 * 2
-        this.color = this.affiliation == "GOOD" ? ORANGE : RED
+        this.color = COLORS[this.affiliation == "GOOD" ? "ORANGE" : "RED"]
         this.anchor = {x: 0.5, y: 0.5}
         this.collision = {
             radius: this.affiliation == "GOOD" ? 10 : 1

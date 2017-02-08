@@ -1,3 +1,8 @@
+import Sprite from "scripts/utility/Sprite.js"
+import COLORS from "scripts/utility/Colors.js"
+
+const FONT_SCALE = 2
+
 var FONT = {
     1: [
         " X",
@@ -211,8 +216,8 @@ var FONT = {
     ]
 }
 
-const FONT_SCALE = 2
-
 for(var key in FONT) {
-    FONT[key] = new Sprite(FONT[key], {"X": WHITE}, FONT_SCALE)
+    FONT[key] = new Sprite(FONT[key], {"X": COLORS.WHITE}, FONT_SCALE)
 }
+
+export default FONT

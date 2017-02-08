@@ -1,4 +1,10 @@
-class Render {
+import FONT from "scripts/assets/Font.js"
+
+const FONT_SCALE = 2
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
+export default class Render {
     constructor(render) {
         this.canvas = document.createElement("canvas")
         this.canvas.context = this.canvas.getContext("2d")

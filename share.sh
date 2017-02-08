@@ -9,7 +9,7 @@
 
 git clone https://github.com/ehgoodenough/overclock --branch gh-pages shares
 
-# node build
+npm start
 
 mkdir -p ./shares/$1
 cp -r ./builds/* ./shares/$1

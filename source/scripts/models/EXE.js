@@ -1,4 +1,9 @@
-class EXE {
+import COLORS from "scripts/utility/Colors.js"
+
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
+export default class EXE {
     constructor(protoexe) {
         this.position = {
             x: WIDTH * 0.5,
@@ -11,7 +16,7 @@ class EXE {
         this.game = protoexe.game
     }
     get color() {
-        return Math.random() < 0.5 ? ORANGE : WHITE
+        return COLORS[Math.random() < 0.5 ? "ORANGE" : "WHITE"]
     }
     update(delta) {
         this.position.y += 0.5 * delta.glitchtime.inFrames
@@ -24,7 +29,7 @@ class EXE {
         && this.game.player.position.y <= this.position.y + (this.height * this.anchor.y)
         && this.game.player.position.y >= this.position.y - (this.height * this.anchor.y)) {
             delete this.game.exe
-            hasOverclocked = true
+            window.hasOverclocked = true
             window.localStorage.hasOverclocked = true
             this.game.string = "OVERCLOCKED"
             window.setTimeout(() => {

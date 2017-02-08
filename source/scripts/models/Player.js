@@ -1,7 +1,12 @@
+import SPRITES from "scripts/assets/Sprites.js"
+import Input from "scripts/utility/Input.js"
+import Projectile from "scripts/models/Projectile.js"
+import Explosion from "scripts/models/Explosion.js"
+
 const MINIMUM_VELOCITY = 0.001
 const MAXIMUM_VELOCITY = 1
 
-class Player {
+export default class Player {
     constructor(protoplayer) {
         this.width = 12
         this.height = 16
@@ -11,7 +16,7 @@ class Player {
         this.width = this.sprite.width
         this.height = this.sprite.height
 
-        this.position = {x: WIDTH * 0.5, y: HEIGHT * 0.75}
+        this.position = {x: 9 * 15 * 0.5, y: 16 * 15 * 0.75}
         this.anchor = {x: 0.5, y: 0.5}
 
         this.acceleration = 0.5 * (20/15)
@@ -75,12 +80,12 @@ class Player {
         }
 
         // More Inputs
-        if(inp.mouse.isDown) {
-            this.position.x += inp.x
-            this.position.y += inp.y
-            inp.x = 0
-            inp.y = 0
-        }
+        // if(inp.mouse.isDown) {
+        //     this.position.x += inp.x
+        //     this.position.y += inp.y
+        //     inp.x = 0
+        //     inp.y = 0
+        // }
 
         // Shooting
         this.counter += delta.realtime.inSeconds
@@ -99,7 +104,7 @@ class Player {
     }
     beDamaged() {
         this.remove()
-        timesDied += 1
+        window.timesDied += 1
         var explosion = new Explosion({
             game: this.game,
             billows: 10,

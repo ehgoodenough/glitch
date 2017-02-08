@@ -1,6 +1,15 @@
-class Thug {
+import COLORS from "scripts/utility/Colors.js"
+import SPRITES from "scripts/assets/Sprites.js"
+
+import Explosion from "scripts/models/Explosion.js"
+import Projectile from "scripts/models/Projectile.js"
+
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
+export default class Thug {
     constructor(protothug) {
-        this.color = RED
+        this.color = COLORS.RED
         this.sprite = SPRITES.ufo
         this.width = this.sprite.width
         this.height = this.sprite.height

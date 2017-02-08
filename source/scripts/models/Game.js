@@ -1,11 +1,25 @@
+import Render from "scripts/utility/Render.js"
+import Player from "scripts/models/Player.js"
+import SPRITES from "scripts/assets/Sprites.js"
+import Star from "scripts/models/Star.js"
+import Thug from "scripts/models/Thug.js"
+import EXE from "scripts/models/EXE.js"
+
+const WIDTH = 9 * 15
+const HEIGHT = 16 * 15
+
 const AMOUNT_OF_STARS = 50
 const AMOUNT_OF_THUGS = 5
 
-var hasOverclocked = window.localStorage.hasOverclocked == "true" || false
-var timesDied = 0
+window.hasOverclocked = window.localStorage.hasOverclocked == "true" || false
+window.timesDied = 0
 const TIMES_TO_DIE = 2
 
-class Game {
+var render = new Render({
+    width: WIDTH, height: HEIGHT
+})
+
+export default class Game {
     constructor() {
         this.thugs = {}
         this.projectiles = {}
@@ -95,7 +109,7 @@ class Game {
         }
 
         if(this.player != undefined) {
-            if(hasOverclocked == false && timesDied >= TIMES_TO_DIE) {
+            if(hasOverclocked == false && window.timesDied >= TIMES_TO_DIE) {
                 if(this.exe == undefined) {
                     this.exe = new EXE({
                         game: this,

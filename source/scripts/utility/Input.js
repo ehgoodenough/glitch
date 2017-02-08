@@ -93,3 +93,5 @@ document.addEventListener("mouseup", function(event) {
 function getMagnitude(x, y) {
     return Math.sqrt(x*x + y*y) || 0
 }
+
+export default Input

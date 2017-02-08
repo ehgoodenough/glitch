@@ -1,8 +1,10 @@
-const RED = "#EF2917"
-const GREEN = "#008148"
-const YELLOW = "#C6C013"
-const ORANGE = "#EF8A17"
-const BLUE = "#4A508A"
-const WHITE = "#FFF"
-const GRAY = "#888"
-const BLACK = "#111"
+export default {
+    "RED": "#EF2917",
+    "GREEN": "#008148",
+    "YELLOW": "#C6C013",
+    "ORANGE": "#EF8A17",
+    "BLUE": "#4A508A",
+    "WHITE": "#FFF",
+    "GRAY": "#888",
+    "BLACK": "#111",
+}
