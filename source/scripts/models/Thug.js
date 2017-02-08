@@ -1,11 +1,9 @@
 import COLORS from "scripts/utility/Colors.js"
 import SPRITES from "scripts/assets/Sprites.js"
+import Screen from "scripts/data/Screen.js"
 
 import Explosion from "scripts/models/Explosion.js"
 import Projectile from "scripts/models/Projectile.js"
-
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
 
 export default class Thug {
     constructor(protothug) {
@@ -42,7 +40,7 @@ export default class Thug {
 
         this.position.y += this.speed * delta.glitchtime.inFrames
 
-        if(this.position.y > HEIGHT + this.height) {
+        if(this.position.y > Screen.height + this.height) {
             this.remove()
         }
 

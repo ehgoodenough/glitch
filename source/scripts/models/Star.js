@@ -1,13 +1,11 @@
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
-
 import COLORS from "scripts/utility/Colors.js"
+import Screen from "scripts/data/Screen.js"
 
 export default class Star {
     constructor() {
         this.position = {
-            x: Math.random() * WIDTH,
-            y: Math.random() * HEIGHT,
+            x: Math.random() * Screen.width,
+            y: Math.random() * Screen.height,
         }
 
         this.parallax = Math.random() * 2
@@ -21,11 +19,11 @@ export default class Star {
     update(delta) {
         this.position.y += this.parallax * this.speed * delta.glitchtime.inFrames
 
-        if(this.position.y > HEIGHT + this.height) {
-            this.position.y -= HEIGHT + this.height
+        if(this.position.y > Screen.height + this.height) {
+            this.position.y -= Screen.height + this.height
             this.position.y *= -1
 
-            this.position.x = Math.random() * WIDTH
+            this.position.x = Math.random() * Screen.width
         }
     }
 }

@@ -4,9 +4,7 @@ import SPRITES from "scripts/assets/Sprites.js"
 import Star from "scripts/models/Star.js"
 import Thug from "scripts/models/Thug.js"
 import EXE from "scripts/models/EXE.js"
-
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
+import Screen from "scripts/data/Screen.js"
 
 const AMOUNT_OF_STARS = 50
 const AMOUNT_OF_THUGS = 5
@@ -16,7 +14,8 @@ window.timesDied = 0
 const TIMES_TO_DIE = 2
 
 var render = new Render({
-    width: WIDTH, height: HEIGHT
+    width: Screen.width,
+    height: Screen.height
 })
 
 export default class Game {
@@ -120,8 +119,8 @@ export default class Game {
                     var thug = new Thug({
                         game: this,
                         position: {
-                            x: (Math.random() * WIDTH * 0.80) + (WIDTH * 0.10),
-                            y: (Math.random() * HEIGHT * -0.5)
+                            x: (Math.random() * Screen.width * 0.80) + (Screen.width * 0.10),
+                            y: (Math.random() * Screen.height * -0.5)
                         }
                     })
                 }
@@ -134,7 +133,7 @@ export default class Game {
 
         //if(hasOverclocked != false) {
         render.canvas.context.fillStyle = "rgba(42, 43, 42, " + delta.glitchtime.inNormals + ")"
-        render.canvas.context.fillRect(0, 0, WIDTH, HEIGHT)
+        render.canvas.context.fillRect(0, 0, Screen.width, Screen.height)
         //}
 
         if(this.player == undefined
@@ -163,11 +162,11 @@ export default class Game {
 
             if(this.player.killcount > 0) {
                 render.renderText(this.player.killcount + " out of 20", {
-                    x: undefined, y: HEIGHT - (10 * 2)
+                    x: undefined, y: Screen.height - (10 * 2)
                 })
             } else {
                 render.renderText("YOU WIN!!", {
-                    x: undefined, y: HEIGHT - (10 * 2)
+                    x: undefined, y: Screen.height - (10 * 2)
                 })
             }
         }
@@ -177,7 +176,7 @@ export default class Game {
         }
 
         if(this.string != undefined) {
-            render.renderText(this.string, {y: HEIGHT / 2})
+            render.renderText(this.string, {y: Screen.height / 2})
         }
     }
 }

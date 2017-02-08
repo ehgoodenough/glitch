@@ -1,8 +1,7 @@
 import FONT from "scripts/assets/Font.js"
+import Screen from "scripts/data/Screen.js"
 
 const FONT_SCALE = 2
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
 
 export default class Render {
     constructor(render) {
@@ -64,7 +63,7 @@ export default class Render {
                 }
             }
 
-            position.x = (WIDTH - width) / 2
+            position.x = (Screen.width - width) / 2
         }
 
         for(var key in string) {

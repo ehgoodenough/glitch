@@ -1,8 +1,5 @@
 import COLORS from "scripts/utility/Colors.js"
 
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
-
 export default class Projectile {
     constructor(protoprojectile) {
         this.affiliation = protoprojectile.affiliation || "GOOD"
@@ -35,8 +32,8 @@ export default class Projectile {
 
         if(this.position.x < -1 * this.width
         || this.position.y < -1 * this.height
-        || this.position.x > WIDTH + this.width
-        || this.position.y > HEIGHT + this.height) {
+        || this.position.x > Screen.width + this.width
+        || this.position.y > Screen.height + this.height) {
             this.remove()
         }
 

@@ -22,7 +22,6 @@ When reading the code, start at `source/index.js`.
 
 #### Code Smells ####
 - Remove the global variables defined in `Game.js`.
-- Remove the duplicate declarations of `WIDTH` and `HEIGHT`.
 - Move `SPRITES` and `COLORS` into a data directory.
 
 #### Dev Life ####

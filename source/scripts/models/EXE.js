@@ -1,13 +1,12 @@
 import COLORS from "scripts/utility/Colors.js"
 
-const WIDTH = 9 * 15
-const HEIGHT = 16 * 15
+import Screen from "scripts/data/Screen.js"
 
 export default class EXE {
     constructor(protoexe) {
         this.position = {
-            x: WIDTH * 0.5,
-            y: HEIGHT * -0.25,
+            x: Screen.width * 0.5,
+            y: Screen.height * -0.25,
         }
         this.anchor = {x: 0.5, y: 0.5}
         this.width = 20
@@ -20,8 +19,8 @@ export default class EXE {
     }
     update(delta) {
         this.position.y += 0.5 * delta.glitchtime.inFrames
-        if(this.position.y > HEIGHT * 0.5) {
-            this.position.y = HEIGHT * 0.5
+        if(this.position.y > Screen.height * 0.5) {
+            this.position.y = Screen.height * 0.5
         }
 
         if(this.game.player.position.x <= this.position.x + (this.width * this.anchor.x)
