@@ -1,5 +1,5 @@
 import Sprite from "scripts/utility/Sprite.js"
-import COLORS from "scripts/utility/Colors.js"
+import COLORS from "scripts/assets/Colors.js"
 
 const FONT_SCALE = 2
 

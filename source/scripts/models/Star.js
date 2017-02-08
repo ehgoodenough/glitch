@@ -1,4 +1,4 @@
-import COLORS from "scripts/utility/Colors.js"
+import COLORS from "scripts/assets/Colors.js"
 import Screen from "scripts/data/Screen.js"
 
 export default class Star {

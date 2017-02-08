@@ -1,4 +1,4 @@
-import COLORS from "scripts/utility/Colors.js"
+import COLORS from "scripts/assets/Colors.js"
 
 export default class Projectile {
     constructor(protoprojectile) {
