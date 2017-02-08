@@ -18,15 +18,6 @@ Build the game.
 
 When reading the code, start at `source/index.js`.
 
-### Credits ###
-
-[Code by ehgoodenough](http://github.com/ehgoodenough/overclock). [Font by DuffsDevice](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=468)
-
-
-### License ###
-
-This project is licensed under MIT.
-
 ### To Do ###
 
 #### Code Smells ####
@@ -37,3 +28,12 @@ This project is licensed under MIT.
 #### Dev Life ####
 
 - Import `statgrab`.
+
+### Credits ###
+
+[Code by ehgoodenough](http://github.com/ehgoodenough/overclock). [Font by DuffsDevice](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=468)
+
+
+### License ###
+
+This project is licensed under MIT.
